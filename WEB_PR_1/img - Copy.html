@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Slider with Buttons</title>
+    <style>
+        body { background-color:cornflowerblue;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slider {width: 600px;
+            height: 300px;
+            margin: 20px auto;
+            border: 2px solid #ccc;
+            
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
+            display: none; /* Hide all images by default */
+        }
+
+        .slider img.active {
+            display: block; /* Show only the active image */
+        }
+
+        .buttons {
+            margin-top: 10px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Image Slider with Buttons</h1>
+
+    <div class="slider">
+        <img src="C:\Users\sajee\OneDrive\Desktop\git.code\nice.png"  alt="Image 1">
+        <img src="C:\Users\sajee\OneDrive\Desktop\git.code\portugal.png" alt="Image 2">
+        <img src="C:\Users\sajee\OneDrive\Desktop\git.code\Screenshot 2026-01-28 223154.png" alt="Image 4">
+        
+	
+
+    </div>
+
+    <div class="buttons">
+        <button onclick="showPrevious()">Previous</button>
+        <button onclick="showNext()">Next</button>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll(".slider img");
+
+        function showImage(index) {
+            // Hide all images
+            images.forEach(img => img.classList.remove("active"));
+
+            // Show the desired image
+            images[index].classList.add("active");
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % images.length; // Loop to the first image
+            showImage(currentIndex);
+        }
+
+        function showPrevious() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length; // Loop to the last image
+            showImage(currentIndex);
+        }
+    </script>
+
+</body>
+</html>

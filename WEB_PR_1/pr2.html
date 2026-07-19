@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Tech Fest</title>
+    <style>
+       
+        body { font-family: sans-serif; text-align: center; background-color:darkblue; }
+         h1{color:white;}
+        .box { 
+            background: white; 
+            width: 80%; 
+            margin: 20px auto; 
+            padding: 20px; 
+            border: 2px solid #333; 
+        }
+
+        #timer { font-size: 30px; font-weight: bold; color: darkred; }
+
+        input, select { margin: 10px; padding: 8px; width: 250px; }
+        
+        button { background-color: green; color: white; padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Tech Fest 2026!</h1>
+
+    <!-- Countdown Section -->
+    <div class="box">
+        <h3>Event Starts In:</h3>
+        <p id="timer">Loading timer...</p>
+    </div>
+    <div class="box">
+        <h3>Register Here</h3>
+        <form id="regForm">
+            <input type="text" id="userName" placeholder="Your Name" required><br>
+            <input type="email" id="userEmail" placeholder="College Email" required><br>
+            <select id="userEvent">
+                <option>Coding Contest</option>
+                <option>Gaming Tournament</option>
+                <option>Robotics Workshop</option>
+            </select><br>
+<br>
+<br>
+<br>
+            <button type="submit">Submit Registration</button>
+        </form>
+    </div>
+
+    <script>
+        // 1. TIMER LOGIC
+        const eventTime = new Date("May 20, 2026 10:00:00").getTime();
+
+        setInterval(function() {
+            const now = new Date().getTime();
+            const diff = eventTime - now;
+
+            // Simple math for days, hours, minutes, seconds
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = d + "d " + h + "h " + m + "m " + s + "s ";
+        }, 1000);
+
+        // 2. FORM LOGIC
+        document.getElementById("regForm").onsubmit = function(event) {
+            event.preventDefault(); // Prevents page from refreshing
+            const name = document.getElementById("userName").value;
+            alert("Thank you, " + name + "! You are registered.");
+        };
+    </script>
+
+</body>
+</html>
