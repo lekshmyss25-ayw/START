@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <button id="bt" onclick="getImage()">Back to Home</button>  
+
+    <script>
+      //  https://api.thecatapi.com/v1/images/search
+    // https://randowmuser.me/api
+
+        //  fetch('API _ Adress')
+       //  Rule: Convert The Response into JSON format
+     function getImage(){
+
+
+      const catImage = document.getElementById("dog")
+
+
+      fetch("https://api.thedogapi.com/v1/images/search")
+
+      .then(res => res.json())
+
+      .then(data =>     catImage.src =   data[0].url)
+
+
+
+      .catch(err => console.log("Error Connection ",err))
+     }
+    </script>
+
+</body>
+</html>
