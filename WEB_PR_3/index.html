@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather up there
+
+    </title>
+    <style >
+        .menu{background-color: rgb(0,0,0,0.5);
+        color: white; font-family: 'Times New Roman', Times, serif;
+    font-size: 20px; border-radius: 20px; margin:20px; padding:20px;
+display: flex; flex-wrap: wrap;; object-fit: cover; 
+          height:fit-content;
+            justify-content: center;
+            gap: 20px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+            button {padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 30px; transition: background-color 0.3s, transform 0.3s;}
+            button:hover{ transform:scale(1.0); background-color: rgb(30, 197, 38);color: rgb(0, 0, 0); box-shadow: 0px 0px 20px rgb(12, 213, 49);}
+    .disp{ 
+display:grid; grid-template-columns: 1fr 1fr 1fr 1fr ; gap: 20px; align-items: center; justify-content: center; border: radius 25px; margin:20px;padding:20px;}
+       .conr{border: radius 25px; padding:15px;}
+.conr:hover{background-color:rgb(15, 195, 236); color:rgb(9, 9, 6);  transform:translateY(+10px); box-shadow: 0px 0px 20px rgb(236, 235, 231); border: radius 20px; }
+
+    </style>
+</head>
+<body background="./cloud.png" background-size="cover">
+    <header>
+
+    </header>
+    <main><div class="menu">
+    <h1 style="font-size: larger;">Weather Up Here</h1><br><br>
+
+    <div style="text-align: center;">
+        <input type="text" id="city" placeholder="Enter City Name" style="padding: 10px; width: 300px; border-radius: 5px; border: none; MARGIN: 20PX; FONT-SIZE: 20PX;">
+        <button onclick="getWeather()" action="#" >CHECK</button>
+    </div>
+    <div id="weatherResult" style="text-align: center; margin-top: 20px; color: white;"></div>
+</div>
+    <script>
+       async function getWeather() {
+            const city = document.getElementById('city').value;
+            const apiKey = '2c38c758974e753a16d54bc912f23dd8'; // Replace with your OpenWeatherMap API key
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+              
+             try{
+                    if (data.cod === 200) {
+                        const weatherInfo = `<HR>
+                            <h2 style="justify-content: center;">${data.name}, ${data.sys.country}</h2><HR>
+                            <div class="disp">
+
+                           <div class="conr">
+                            <p>Temperature: <br><br>${data.main.temp} °C</p> </div>
+                            <div class="conr"><p>Weather:<br><br> ${data.weather[0].description}</p></div>
+                            <div class="conr"><p>Humidity: <br><br>${data.main.humidity}%</p></div>
+                            <div class="conr"><p>Wind Speed: <br><br>${data.wind.speed} m/s</p></div>
+                            </div>
+                        `;
+                        document.getElementById('weatherResult').innerHTML = weatherInfo;
+                    } else {
+                        document.getElementById('weatherResult').innerHTML = `<p>${data.message}</p>`;
+                    }
+             }
+                catch(error) {
+                    console.error('Error fetching weather data:', error);
+                    document.getElementById('weatherResult').innerHTML = `<p>Error fetching weather data. Please try again later.</p>`;
+                }
+            }
+    </script>
+    </main>
+</body>
+</html>
