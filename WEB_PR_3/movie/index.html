@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WATCHLIST</title>
+</head>
+<body background="./backg.jpg" background-size="fit;"  background-repeat="no-repeat;"   background-position="center; ">
+    
+    <main>
+        <div class="menu">
+            <div style="text-align: center;">
+                <input type="text" id="movie" placeholder="Enter Movie Name" style="padding: 10px; width: 300px; border-radius: 5px; border: none; MARGIN: 20PX; FONT-SIZE: 20PX;">
+                <button onclick="getMovie()" action="#" >🔍︎</button>
+            </div>
+            <div id="movieResult" style="text-align: center; margin-top: 20px; color: white;"></div>
+        </div>
+        <script>
+            async function getMovie() {
+                const movie = document.getElementById('movie').value;
+                const apiKey = '62d6a8bc'; 
+                const url = `https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.Response === "True") {
+                    const movieInfo = `<HR>
+                        <h2 style="justify-content: center;">${data.Title} (${data.Year})</h2><HR>
+                        <div class="disp">
+                            <p>Director: ${data.Director}</p>
+                            <p>Genre: ${data.Genre}</p>
+                            <p>Plot: ${data.Plot}</p>
+                            <img src="${data.Poster}" alt="${data.Title} Poster" style="width:200px;">
+                        </div>`;
+                    document.getElementById('movieResult').innerHTML = movieInfo;
+                } else {
+                    document.getElementById('movieResult').innerHTML = `<p>Movie not found. Please try again.</p>`;
+                }
+            }
+        </script>
+    </main>
+</body>
+</html>
