@@ -7,13 +7,16 @@
 
     </title>
     <style >
+        h1{background: -webkit-linear-gradient( #090748,#eee);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;}
         .menu{background-color: rgb(0,0,0,0.5);
         color: white; font-family: 'Times New Roman', Times, serif;
     font-size: 20px; border-radius: 20px; margin:20px; padding:20px;
 display: flex; flex-wrap: wrap;; object-fit: cover; 
           height:fit-content;
             justify-content: center;
-            gap: 20px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+            gap: 20px;  position:absolute;top:50%; left:50%; transform:translate(-50%,-50%);}
             button {padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 30px; transition: background-color 0.3s, transform 0.3s;margin:15px;padding:15px;}
             button:hover{ transform:scale(1.0); background-color: rgb(30, 197, 38);color: rgb(0, 0, 0); box-shadow: 0px 0px 20px rgb(12, 213, 49);}
     .disp{ 
@@ -21,14 +24,18 @@ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr ; gap: 20px; align-items: c
        .conr{border: radius 25px; padding:15px;}
 .conr:hover{background-color:rgb(15, 195, 236); color:rgb(9, 9, 6);  transform:translateY(+10px); box-shadow: 0px 0px 20px rgb(236, 235, 231); border: radius 20px; }
 
+footer{ background-color: rgb(0,0,0); color: antiquewhite; font-family: 'Courier New', Courier, monospace; font-size: 2px; text-align: center; padding: 20px; position: fixed; bottom: 0; width: 100%;}
+
     </style>
 </head>
 <body background="./cloud.png" background-size="cover">
     <header>
 
     </header>
+
+     <h1 style="font-size: 50px;font-family: 'Times New Roman', Times, serif;">Weather <br>Up_Here _</h1><br><br>
     <main><div class="menu">
-    <h1 style="font-size: larger;">Weather Up Here</h1><br><br>
+   
 
     <div style="text-align: center;">
         <input type="text" id="city" placeholder="Enter City Name" style="padding: 10px; width: 300px; border-radius: 5px; border: none; MARGIN: 20PX; FONT-SIZE: 20PX;">
@@ -39,7 +46,7 @@ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr ; gap: 20px; align-items: c
     <script>
        async function getWeather() {
             const city = document.getElementById('city').value;
-            const apiKey = '2c38c758974e753a16d54bc912f23dd8'; // Replace with your OpenWeatherMap API key
+            const apiKey = '2c38c758974e753a16d54bc912f23dd8'; 
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
             const response = await fetch(url);
@@ -70,5 +77,7 @@ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr ; gap: 20px; align-items: c
             }
     </script>
     </main>
+<br><br>
+
 </body>
 </html>
