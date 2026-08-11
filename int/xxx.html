@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WATCHLIST</title>
+    <style>
+        body {
+            /* COMBINED: Color acts as fallback, image sits on top, centered, fixed */
+            background: #1c1c1c url('./backg.jpg') no-repeat center center fixed;
+            background-size: cover;
+
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Changed height to min-height so the page can expand if the movie text is long */
+            min-height: 100vh; 
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* Changed to min-height so content doesn't overflow awkwardly */
+            min-height: 100vh; 
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff4500;
+            color: white;
+            cursor: pointer;
+            font-size: 30px;
+        }
+        button:hover {
+            background-color: #672c14;
+        }
+        .disp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Fixed text color for visibility against dark backgrounds */
+        #movieResult {
+            color: white; 
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="menu">
+            <div style="text-align: center;">
+                <input type="text" id="movie" placeholder="Enter Movie Name" style="padding: 10px; border-radius: 5px; border: none; margin: 20px; font-size: 40px;">
+                <button onclick="getMovie()">🔍︎</button>
+            </div>
+            <div id="movieResult" style="text-align: center; margin-top: 20px;"></div>
+        </div>
+        <script>
+            async function getMovie() {
+                const movie = document.getElementById('movie').value;
+                const apiKey = '62d6a8bc'; 
+                const url = `https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`;
+
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    if (data.Response === "True") {
+                        const movieInfo = `
+                            <hr>
+                            <h2>${data.Title} (${data.Year})</h2>
+                            <hr>
+                            <div class="disp">
+                                <p><strong>Director:</strong> ${data.Director}</p>
+                                <p><strong>Genre:</strong> ${data.Genre}</p>
+                                <p><strong>Plot:</strong> ${data.Plot}</p>
+                                <img src="${data.Poster}" alt="${data.Title} Poster" style="width:200px; border-radius: 8px; margin-top: 10px;">
+                            </div>`;
+                        document.getElementById('movieResult').innerHTML = movieInfo;
+                    } else {
+                        document.getElementById('movieResult').innerHTML = `<p>Movie not found. Please try again.</p>`;
+                    }
+                } catch (error) {
+                    document.getElementById('movieResult').innerHTML = `<p>Error fetching data. Check your connection.</p>`;
+                }
+            }
+        </script>
+    </main>
+</body>
+</html>

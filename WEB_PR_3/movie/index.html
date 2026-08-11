@@ -4,16 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WATCHLIST</title>
+    <style>
+        body {
+
+    background: url('./backg.jpg') no-repeat center center fixed;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+
+
+            background-color: #1c1c1c;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff4500;
+            color: white;
+            cursor: pointer;
+            font-size: 30px;
+        }
+        button:hover {
+            background-color: #672c14;
+        }
+        .disp {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin: 20px;
+            padding: 20px;
+        }
+
+   body.change{
+         background: url('./backg.jpg') no-repeat  fixed 100% 100%;
+         background-color: #1c1c1c;
+      }
+
+      .tab{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        text-align:left;
+        margin: 20px;
+        color: white;
+      }
+      hr{
+       
+            border: none;
+            border-top: 1px solid white;
+            width: 100%;
+            margin: 15px 0;
+      }
+        
+
+    </style>
 </head>
-<body background="./backg.jpg" background-size="fit;"  background-repeat="no-repeat;"   background-position="center; ">
+<body >
+      <header> <h1 STYLE="text-align: left; font-size: 60px; color:rgb(47, 136, 136);font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">WATCH<BR>LIST.</h1>
+    </header> 
+        <main>
     
-    <main>
         <div class="menu">
             <div style="text-align: center;">
-                <input type="text" id="movie" placeholder="Enter Movie Name" style="padding: 10px; width: 300px; border-radius: 5px; border: none; MARGIN: 20PX; FONT-SIZE: 20PX;">
+                <input type="text" id="movie" placeholder="Enter Movie Name" style="padding: 10px;  border-radius: 5px; border: none; MARGIN: 20PX; FONT-SIZE: 40PX;">
                 <button onclick="getMovie()" action="#" >🔍︎</button>
             </div>
-            <div id="movieResult" style="text-align: center; margin-top: 20px; color: white;"></div>
+            <div id="movieResult" style="text-align: center; margin-top: 20px;color:black "></div>
         </div>
         <script>
             async function getMovie() {
@@ -25,20 +93,39 @@
                 const data = await response.json();
 
                 if (data.Response === "True") {
-                    const movieInfo = `<HR>
-                        <h2 style="justify-content: center;">${data.Title} (${data.Year})</h2><HR>
-                        <div class="disp">
-                            <p>Director: ${data.Director}</p>
-                            <p>Genre: ${data.Genre}</p>
-                            <p>Plot: ${data.Plot}</p>
-                            <img src="${data.Poster}" alt="${data.Title} Poster" style="width:200px;">
-                        </div>`;
+                   
+                    const movieInfo = `
+                     <div class="tab">
+                         <div class="disp">
+                            
+                        <h2 style="justify-content: center;">${data.Title} (${data.Year})</h2>
+                        <HR >
+                            <p><em>Director:</em> ${data.Director}</p>
+                            <p><em>Genre:</em> ${data.Genre}</p>
+                            <p><em>Plot:</em> <br><br> ${data.Plot}</p>
+                            <p><em>IMDB Rating:</em> ${data.imdbRating}</p>
+                       
+                    </div>
+                       
+                          <div class="disp">
+                            <img src="${data.Poster}" alt="${data.Title} Poster" style="width:300px;box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.7); border-radius: 8px; 
+            border-bottom: 2px solid black; ">
+                        </div>
+                         </div>`;
                     document.getElementById('movieResult').innerHTML = movieInfo;
                 } else {
                     document.getElementById('movieResult').innerHTML = `<p>Movie not found. Please try again.</p>`;
                 }
+
+            document.body.classList.add('change');
+
+
             }
+
         </script>
     </main>
+    <footer style="background-color:rgb(47, 136, 136);  text-align: center; padding: 20px;">
+        <p>&copy; 2026 WatchList. All rights reserved.</p>
+    </footer>
 </body>
 </html>
