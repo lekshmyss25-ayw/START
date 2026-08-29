@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import opt2 from '/opt2.jpg';
+//import opt2 from '/schedule-1.jpg';
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -72,11 +72,12 @@ function ToDoList() {
 
    
     return (
-        <body style={{ backgroundImage: `url(${opt2})`}}>
+    
         <div className="to-do-list">
             
             <div className="input-container" >
                 <div>
+                <br></br>
                 <h1>Get Started with Your New List.</h1>
                 <h1>it's time !!</h1></div>
                 <input
@@ -138,7 +139,7 @@ function ToDoList() {
                 ))}
             </ol>
         </div>
-        </body>
+    
     );
 }
 
