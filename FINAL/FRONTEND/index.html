@@ -11,17 +11,9 @@
 
          body{
         background-image: url('./back.jpg'); 
-            
-            /* Prevents the image from repeating like a grid */
             background-repeat: no-repeat; 
-            
-            /* Centers the image on the screen */
             background-position: center; 
-            
-            /* Scales the image to fully cover the viewport */
             background-size: cover; 
-            
-            /* Keeps the background fixed in place while scrolling */
             background-attachment: fixed; 
       }
       header{
@@ -98,7 +90,7 @@ li{
 <body>
 
      <script>
-        // Track whether we are creating a new post or editing an old one
+       
         let currentEditingId = null;
 
         window.onload = function() {
@@ -111,7 +103,7 @@ li{
                 formContainer.style.display = "block";
             } else {
                 formContainer.style.display = "none";
-                resetFormState(); // Clear out data if closed
+                resetFormState(); 
             }
         }
 
@@ -125,7 +117,7 @@ li{
             document.getElementById("category").value = "";
         }
 
-        // Handles both CREATING and UPDATING depending on currentEditingId status
+
         async function handleFormSubmit() {
             const author = document.getElementById("author").value.trim();
             const title = document.getElementById("title").value.trim();
@@ -137,7 +129,6 @@ li{
             let url = 'http://localhost:5000/posts';
             let method = 'POST';
 
-            // If an ID is set, switch over to an UPDATE routine
             if (currentEditingId) {
                 url = `http://localhost:5000/posts/${currentEditingId}`;
                 method = 'PUT';
@@ -167,14 +158,13 @@ li{
             }
         }
 
-        // Fetches posts and applies search parameters dynamically
         async function getPosts() {
             const listContainer = document.getElementById("postit-list");
             const searchQuery = document.getElementById("searchBar").value.trim();
             
             listContainer.innerHTML = "<li>Loading items...</li>";
             
-            // Build URL checking for search string values
+           
             let targetUrl = 'http://localhost:5000/posts';
             if (searchQuery) {
                 targetUrl += `?search=${encodeURIComponent(searchQuery)}`;
@@ -194,9 +184,10 @@ li{
                     const listItem = document.createElement("li");
                     listItem.innerHTML = `
                         <div class="text">
+                            <p style="font-size: 0.85rem; font-weight: normal; color: #555;text-align: left;">Created on: ${new Date(post.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
                             <h4 style="font-weight: bold; margin-bottom: 5px;">${post.title} <span style="font-size: 0.9rem; color: #666; font-weight: normal;">[${post.category}]</span></h4>
                             <p style="font-size: 1.1rem; font-weight: normal; margin: 5px 0; background-color: #fffde6; padding: 8px; border-radius: 4px;">${post.content || post.body || ''}</p>
-                            <span style="font-size: 0.85rem; font-weight: normal; color: #555;">By: <em>${post.author}</em></span>
+                            <span style="font-size: 0.85rem; font-weight: normal; color: #555;">By: <em>${post.author}</em> </span>
                         </div>
                         <!-- Added operational buttons linked across unique IDs -->
                         <button class="move-button" onclick="prepareUpdate('${post._id}', '${escapeJS(post.title)}', '${escapeJS(post.author)}', '${escapeJS(post.content || post.body || '')}', '${escapeJS(post.category)}')">Edit</button>
@@ -209,7 +200,6 @@ li{
             }
         }
 
-        // Loads a post's existing values into form inputs to execute an update edit sequence
         function prepareUpdate(id, title, author, content, category) {
             currentEditingId = id;
             document.getElementById("formTitleText").innerText = "Edit Post-It";
@@ -220,7 +210,7 @@ li{
             document.getElementById("body").value = content;
             document.getElementById("category").value = category;
             
-            // Show the form block and scroll focus to it smoothly
+            
             document.getElementById("newPostFormContainer").style.display = "block";
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -271,8 +261,8 @@ li{
 
 
     <div id="newPostFormContainer" style="display: none; border: 1px solid #ccc; padding: 20px; margin: 20px auto; max-width: 500px; border-radius: 8px; background-color: #f9f9f9;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        <h3>Add a New Post-It</h3>
-        <form onsubmit="event.preventDefault(); addPostIt();">
+        <h3 id="formTitleText">Add a New Post-It</h3>
+        <form onsubmit="event.preventDefault(); handleFormSubmit();">
             <label for="title"><b>Title</b></label><br>
             <input type="text" placeholder="Post Title" id="title" required style="width: 90%; padding: 8px; margin: 10px;"><br>
             
@@ -285,26 +275,22 @@ li{
             <label for="category"><b>Category</b></label><br>
             <input type="text" placeholder="Category" id="category" required style="width: 90%; padding: 8px; margin: 10px;"><br>
 
-            <input type="submit" value="Submit Post" class="btn" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            <input type="submit" id="submitBtn" value="Submit Post" class="btn" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
         </form>
     </div>
 
     
     <p id="responseMsg" style="text-align: center; font-weight: bold; color: green;"></p>
 
-   <div style="text-align: center; margin: 20px;background-color: rgba(0, 0, 0, 0.5);">
+   <div style="text-align: center; margin: 20px 0 0 0 ; padding:30px; width:100vw; box-sizing: border-box; background-color: rgba(0, 0, 0, 0.5);">
       <h2 style="text-align: left; color: #fefefe;">All Post-Its</h2>
         <input type="text" id="searchBar" placeholder="Search by title..." oninput="getPosts()" style="width: 60%; padding: 10px; font-size: 1rem; border: 2px solid #ccc; border-radius: 5px;">
-   
-  
+
     <ol id="postit-list"></ol>
 
-
-
-
-
-
  </div>
+
+
 </body>
 </html>
 
